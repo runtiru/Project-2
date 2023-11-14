@@ -4,8 +4,8 @@
   tasks:
   - name: Add jenkins key
     apt_key:
-      url: https://pkg.jenkins.io/debian-stable/jenkins.io-2023.key
-      state: prestnt
+      url:  https://pkg.jenkins.io/debian-stable/jenkins.io-2023.key
+      state: present
 
   - name: add jenkins repo 
     apt_repository: 
@@ -13,21 +13,21 @@
       state: present
 
   - name: install java
-    ansible.builtin.apt: 
+    apt:
       name: openjdk-11-jre
       state: present
 
   - name: install jenkins
-    ansible.builtin.apt:
+    apt:
       name: jenkins
       state: present
 
   - name: start jenkins service
-    ansible.builtin.service:
+    service:
       name: jenkins
       state: started
 
   - name: enable jenkins to start at boot time
-    ansible.builtin.service:
+    service:
       name: jenkins
       enabled: yes
