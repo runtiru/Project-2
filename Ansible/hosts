@@ -1,13 +1,15 @@
-[jenkins_master]
+[jenkins-master]
+172.31.108.73
 
-
-[jenkins_master:vars]
+[jenkins-master:vars]
 ansible_user=ubuntu
-ansible_ssh_private_key_file=runaws_vir.pem
-
-[jenkins_slave]
+ansible_ssh_private_key_file=/opt/KS.pem
 
 
-[jenkins_slave:vars]
+
+[jenkins-slave]
+172.31.5.84
+
+[jenkins-slave:vars]
 ansible_user=ubuntu
-ansible_ssh_private_key_file=runaws_vir.pem
+ansible_ssh_private_key_file=/opt/KS.pem

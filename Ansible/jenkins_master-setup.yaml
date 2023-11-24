@@ -3,31 +3,31 @@
   become: true
   tasks:
   - name: Add jenkins key
-    apt_key:
-      url:  https://pkg.jenkins.io/debian-stable/jenkins.io-2023.key
+    ansible.builtin.apt_key:
+      url: https://pkg.jenkins.io/debian-stable/jenkins.io-2023.key
       state: present
 
   - name: add jenkins repo 
-    apt_repository: 
+    ansible.builtin.apt_repository:
       repo: 'deb https://pkg.jenkins.io/debian-stable binary/'
       state: present
 
   - name: install java
-    apt:
+    ansible.builtin.apt:
       name: openjdk-11-jre
       state: present
 
   - name: install jenkins
-    apt:
+    ansible.builtin.apt:
       name: jenkins
       state: present
 
   - name: start jenkins service
-    service:
+    ansible.builtin.service:
       name: jenkins
       state: started
 
   - name: enable jenkins to start at boot time
-    service:
+    ansible.builtin.service:
       name: jenkins
       enabled: yes
