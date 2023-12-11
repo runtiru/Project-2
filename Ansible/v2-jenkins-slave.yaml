@@ -14,21 +14,28 @@
   
   - name: download maven package
     ansible.builtin.get_url:
-      url: https://dlcdn.apache.org/maven/maven-3/3.9.5/binaries/apache-maven-3.9.5-bin.tar.gz
+      url: https://dlcdn.apache.org/maven/maven-3/3.9.6/binaries/apache-maven-3.9.6-bin.tar.gz
       dest: /opt
 
   - name: Unarchive a file that is already on the remote machine
     ansible.builtin.unarchive:
-      src: /opt/apache-maven-3.9.5-bin.tar.gz
+      src: /opt/apache-maven-3.9.6-bin.tar.gz
       dest: /opt
       remote_src: yes
 
   - name: install docker
-    apt:
+    ansible.builtin.apt:
       name: docker.io
-      state: present
+      state: latest
+      update_cache: yes
   
   - name: start docker service
-    service:
+    ansible.builtin.service:
       name: docker
       state: started
+      enabled: yes
+    
+  - name: restart docker
+    ansible.builtin.service: 
+      name: docker 
+      state: restarted
