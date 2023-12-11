@@ -49,4 +49,4 @@
     ansible.builtin.file:
       name: /var/run/docker.sock
       state: file
-      mode: '777'
+      mode: '0777'
