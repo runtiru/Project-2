@@ -39,3 +39,14 @@
     ansible.builtin.service: 
       name: docker 
       state: restarted
+    
+  - name: start docker on boot time
+    service:
+      name: docker
+      enabled: yes
+
+  - name : give 777 perminssion on /var/run/docker.sock
+    ansible.builtin.file:
+      name: /var/run/docker.sock
+      state: file
+      mode: '777'
