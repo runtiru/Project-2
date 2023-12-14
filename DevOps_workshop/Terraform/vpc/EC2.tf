@@ -25,10 +25,10 @@ resource "aws_instance" "my-instance" {
   vpc_security_group_ids = [aws_security_group.my_sg.id]
   subnet_id              = aws_subnet.my_pub_subnet_01.id
 
-  # for_each = toset(["Jenkins_master", "Ansible", "Slave"])
-  # tags = {
-  #   Name = "${each.key}"
-  # }
+  for_each = toset(["Jenkins_master", "Ansible", "Slave"])
+  tags = {
+    Name = "${each.key}"
+  }
 }
 
 
