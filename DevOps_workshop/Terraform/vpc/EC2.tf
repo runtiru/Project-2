@@ -130,3 +130,16 @@ resource "aws_route_table_association" "my_rta_pub_subnet_02" {
   subnet_id      = aws_subnet.my_pub_subnet_02.id
   route_table_id = aws_route_table.my_rt.id
 }
+
+
+  module "sgs" {
+    source = "../sg_eks"
+    vpc_id     =     aws_vpc.my_vpc.id
+ }
+
+  module "eks" {
+       source = "../eks"
+       vpc_id     =     aws_vpc.my_vpc.id
+       subnet_ids = [aws_subnet.my_pub_subnet_01.id,aws_subnet.my_pub_subnet_02.id]
+       sg_ids = module.sgs.security_group_public
+ }
