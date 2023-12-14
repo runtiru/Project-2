@@ -19,7 +19,7 @@ provider "aws" {
 resource "aws_instance" "my-instance" {
   ami           = "ami-0fc5d935ebf8bc3bc"
   instance_type = "t2.micro"
-  key_name      = "ksnv_key"
+  key_name      = "KS"
 
   #   security_groups        = ["my_sg"]
   vpc_security_group_ids = [aws_security_group.my_sg.id]
@@ -132,14 +132,14 @@ resource "aws_route_table_association" "my_rta_pub_subnet_02" {
 }
 
 
-  module "sgs" {
-    source = "../sg_eks"
-    vpc_id     =     aws_vpc.my_vpc.id
- }
+module "sgs" {
+  source = "../sg_eks"
+  vpc_id = aws_vpc.my_vpc.id
+}
 
-  module "eks" {
-       source = "../eks"
-       vpc_id     =     aws_vpc.my_vpc.id
-       subnet_ids = [aws_subnet.my_pub_subnet_01.id,aws_subnet.my_pub_subnet_02.id]
-       sg_ids = module.sgs.security_group_public
- }
+module "eks" {
+  source     = "../eks"
+  vpc_id     = aws_vpc.my_vpc.id
+  subnet_ids = [aws_subnet.my_pub_subnet_01.id, aws_subnet.my_pub_subnet_02.id]
+  sg_ids     = module.sgs.security_group_public
+}
